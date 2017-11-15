@@ -58,6 +58,19 @@ namespace KATYA
             }
             return SO;
         }
+        public StatusObject RecordToTextFile()
+        {
+            StatusObject SO = new StatusObject();
+            try
+            {
+
+            }
+            catch(Exception e)
+            {
+
+            }
+            return SO;
+        }
         public StatusObject RecordInstruction()
         {
             StatusObject SO = new StatusObject();
