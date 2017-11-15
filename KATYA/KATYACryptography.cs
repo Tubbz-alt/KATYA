@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 using System.Numerics;
 namespace KATYA
 {
-    public class KATYACryptography
+    public partial class KATYACryptography
     {
         public string ASCIICharacters = "";
+        private string RootPath { get; set; }
         public KATYACryptography()
         {
 

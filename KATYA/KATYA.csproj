@@ -49,6 +49,7 @@
     <Compile Include="KATYADatabase.cs" />
     <Compile Include="KATYAFile.cs" />
     <Compile Include="KATYAMalaysia.cs" />
+    <Compile Include="KATYARuntime.cs" />
     <Compile Include="KATYASpeech.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

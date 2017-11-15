@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KATYA
 {
-    public class KATYAFile
+    public partial class KATYAFile
     {
         public string FilePath { get; set; }
         public KATYAFile(string FilePath)
@@ -62,6 +62,24 @@ namespace KATYA
             catch(Exception e)
             {
                 SO = new StatusObject(e, "FILE_PROCESSTEXTBYLINE");
+            }
+            return SO;
+        }
+        public StatusObject WriteToTextFile()
+        {
+            StatusObject SO = new StatusObject();
+            return SO;
+        }
+        public StatusObject WriteToCSV(params object[] Content)
+        {
+            StatusObject SO = new StatusObject();
+            try
+            {
+
+            }
+            catch(Exception e)
+            {
+
             }
             return SO;
         }

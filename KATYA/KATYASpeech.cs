@@ -9,7 +9,7 @@ using System.Speech.AudioFormat;
 using System.Speech.Recognition;
 namespace KATYA
 {
-    public class KATYASpeech
+    public partial class KATYASpeech
     {
         public KATYASpeech()
         {
