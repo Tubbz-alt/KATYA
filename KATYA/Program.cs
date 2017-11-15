@@ -17,13 +17,22 @@ namespace KATYA
             {
                 try
                 {
-                    Console.Write("Command: ");
-                    UserInput = Console.ReadLine();
+                    /*Batch Processing*/
+                    if (args.Length > 0)
+                    {
+                        UserInput = String.Join(" ", args);
+                    }
+                    else
+                    {
+                        Console.Write("Command: ");
+                        UserInput = Console.ReadLine();
+                    }
                     if(UserInput != "exit")
                     {
                         string PrimaryCommand = UserInput.Split(' ')[0];
                         string InstructionSet = UserInput.Remove(0, PrimaryCommand.Length).Trim();
                         Console.WriteLine(InstructionSet);
+
                     }
                     else
                     {
