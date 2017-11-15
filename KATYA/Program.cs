@@ -13,6 +13,15 @@ namespace KATYA
             string StartupMode = "console";
             bool ProgramRunning = true;
             string UserInput = "";
+            try
+            {
+                KATYARuntime StartUpEvents = new KATYARuntime();
+                StartUpEvents.BuildDirectories();
+            }
+            catch(Exception e)
+            {
+
+            }
             while (ProgramRunning)
             {
                 try
