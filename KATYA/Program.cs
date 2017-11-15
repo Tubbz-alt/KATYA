@@ -31,6 +31,11 @@ namespace KATYA
                     {
                         string PrimaryCommand = UserInput.Split(' ')[0];
                         string InstructionSet = UserInput.Remove(0, PrimaryCommand.Length).Trim();
+                        if(PrimaryCommand == "speech")
+                        {
+                            KATYASpeech SpeechTools = new KATYASpeech();
+                            SpeechTools.Speak(InstructionSet);
+                        }
                         Console.WriteLine(InstructionSet);
 
                     }
