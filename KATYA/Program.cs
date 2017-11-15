@@ -16,11 +16,17 @@ namespace KATYA
             try
             {
                 KATYARuntime StartUpEvents = new KATYARuntime();
+                KATYAMultiTasker AvailableTasks = new KATYAMultiTasker();
                 StartUpEvents.BuildDirectories();
+                AvailableTasks.AddVoidTask("Hello", AvailableTasks.TestTask1);
+                AvailableTasks.AddVoidTask("World", AvailableTasks.TestTask2);
+                AvailableTasks.AddVoidTask("hahahah", AvailableTasks.TestTask3);
+                AvailableTasks.StartAllThreads();
+                AvailableTasks.StartAllThreads();
             }
             catch(Exception e)
             {
-
+                
             }
             while (ProgramRunning)
             {
