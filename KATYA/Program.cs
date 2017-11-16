@@ -21,6 +21,7 @@ namespace KATYA
                 AvailableTasks.AddVoidTask("Hello", AvailableTasks.TestTask1);
                 AvailableTasks.AddVoidTask("World", AvailableTasks.TestTask2);
                 AvailableTasks.AddVoidTask("hahahah", AvailableTasks.TestTask3);
+                AvailableTasks.AddParameterizedTask("huhu", AvailableTasks.NonVoidTask, "Hellworldhuhuu");
                 AvailableTasks.StartAllThreads();
                 AvailableTasks.StartAllThreads();
             }

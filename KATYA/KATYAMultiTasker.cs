@@ -10,9 +10,18 @@ namespace KATYA
     public class KATYAMultiTasker
     {
         public Dictionary<string,Thread> AvailableThreads { get; set; }
+        public Dictionary<string,Thread> AvailableParameterizedThreads { get; set; }
+        public Dictionary<string,string> InstallDirectories { get; set; }
         public KATYAMultiTasker()
         {
-            this.AvailableThreads = new Dictionary<string, Thread>();
+            try
+            {
+
+            }
+            catch(Exception e)
+            {
+                this.AvailableThreads = new Dictionary<string, Thread>();
+            }
         }
         public StatusObject AddVoidTask(string TaskName, Action VoidFunction)
         {
@@ -27,9 +36,17 @@ namespace KATYA
             }
             return SO;
         }
-        public StatusObject AddParameterizedTask(string TaskName)
+        public StatusObject AddParameterizedTask(string TaskName, Action<object> ParameterizedVoidFunction, object Input)
         {
             StatusObject SO = new StatusObject();
+            try
+            {
+                AvailableThreads.Add(TaskName, new Thread(new ParameterizedThreadStart(ParameterizedVoidFunction)));
+            }
+            catch(Exception e)
+            {
+                SO = new StatusObject(e, "MULTITASKER_ADDPARAMETERIZEDTASK");
+            }
             return SO;
         }
         public void TestTask1()
@@ -56,6 +73,15 @@ namespace KATYA
                 Thread.Sleep(3000);
             }
         }
+        public void NonVoidTask(object Hello)
+        {
+            while (true)
+            {
+                Console.WriteLine("Parameterized Task 1 {0}", Hello);
+                Thread.Sleep(500);
+            }
+            
+        }
         public StatusObject StartAllThreads()
         {
             StatusObject SO = new StatusObject();
@@ -65,6 +91,19 @@ namespace KATYA
                 {
                     AvailableThread.Value.Start();
                 }
+            }
+            catch(Exception e)
+            {
+
+            }
+            return SO;
+        }
+        public StatusObject StartThread(string TaskName)
+        {
+            StatusObject SO = new StatusObject();
+            try
+            {
+
             }
             catch(Exception e)
             {

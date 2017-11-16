@@ -18,9 +18,8 @@ namespace KATYA
                  Template: InstallDirectories.Add("", "");
                  */
                 InstallDirectories = new Dictionary<string, string>();
-                InstallDirectories.Add("Main", "KATYA");
-                InstallDirectories.Add("KATYACryptographyMain", @"KATYA\Cryptography");
-                InstallDirectories.Add("KATYADatabaseMain", @"KATYA\Database");
+                InstallDirectories.Add("Main", "Runtime");
+                InstallDirectories.Add("StartupInstructions", @"Runtime\StartupInstructions");
             }
             catch(Exception e)
             {
