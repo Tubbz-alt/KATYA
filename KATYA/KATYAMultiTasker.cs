@@ -53,6 +53,25 @@ namespace KATYA
             }
             return SO;
         }
+        public StatusObject GetAllTasks()
+        {
+            StatusObject SO = new StatusObject();
+            try
+            {
+                ProcessThreadCollection ActiveThreadList = Process.GetCurrentProcess().Threads;
+                foreach(ProcessThread ActiveThread in ActiveThreadList)
+                {
+                    Console.WriteLine(ActiveThread.Id);
+                }
+            }
+            catch(Exception e)
+            {
+                SO = new StatusObject(e, "MULTITASKER_GETALLTASKS_01");
+            }
+            return SO;
+        }
+        
+        /*Sample Threads*/
         public void TestTask1()
         {
             while (true)
@@ -85,22 +104,6 @@ namespace KATYA
                 Thread.Sleep(500);
             }
             
-        }
-        public StatusObject StartAllThreads()
-        {
-            StatusObject SO = new StatusObject();
-            try
-            {
-                foreach (KeyValuePair<string, Thread> AvailableThread in AvailableThreads)
-                {
-                    AvailableThread.Value.Start();
-                }
-            }
-            catch(Exception e)
-            {
-
-            }
-            return SO;
         }
     }
 }

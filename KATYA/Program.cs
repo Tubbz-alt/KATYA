@@ -22,8 +22,7 @@ namespace KATYA
                 AvailableTasks.AddTask(AvailableTasks.TestTask2);
                 AvailableTasks.AddTask(AvailableTasks.TestTask3);
                 AvailableTasks.AddTask(AvailableTasks.NonVoidTask, "Hellworldhuhuu");
-                AvailableTasks.StartAllThreads();
-                AvailableTasks.StartAllThreads();
+                AvailableTasks.GetAllTasks();
             }
             catch(Exception e)
             {
