@@ -18,10 +18,10 @@ namespace KATYA
                 KATYARuntime StartUpEvents = new KATYARuntime();
                 KATYAMultiTasker AvailableTasks = new KATYAMultiTasker();
                 StartUpEvents.BuildDirectories();
-                AvailableTasks.AddVoidTask("Hello", AvailableTasks.TestTask1);
-                AvailableTasks.AddVoidTask("World", AvailableTasks.TestTask2);
-                AvailableTasks.AddVoidTask("hahahah", AvailableTasks.TestTask3);
-                AvailableTasks.AddParameterizedTask("huhu", AvailableTasks.NonVoidTask, "Hellworldhuhuu");
+                AvailableTasks.AddTask(AvailableTasks.TestTask1);
+                AvailableTasks.AddTask(AvailableTasks.TestTask2);
+                AvailableTasks.AddTask(AvailableTasks.TestTask3);
+                AvailableTasks.AddTask(AvailableTasks.NonVoidTask, "Hellworldhuhuu");
                 AvailableTasks.StartAllThreads();
                 AvailableTasks.StartAllThreads();
             }

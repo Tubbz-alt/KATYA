@@ -16,36 +16,40 @@ namespace KATYA
         {
             try
             {
-
+                this.AvailableThreads = new Dictionary<string, Thread>();
+                this.AvailableParameterizedThreads = new Dictionary<string, Thread>();
             }
             catch(Exception e)
             {
                 this.AvailableThreads = new Dictionary<string, Thread>();
+                this.AvailableParameterizedThreads = new Dictionary<string, Thread>();
             }
         }
-        public StatusObject AddVoidTask(string TaskName, Action VoidFunction)
+        public StatusObject AddTask(Action<object> Task, object Input)
         {
             StatusObject SO = new StatusObject();
             try
             {
-                AvailableThreads.Add(TaskName, new Thread(new ThreadStart(VoidFunction)));
-            }
-            catch (Exception e)
-            {
-                SO = new StatusObject(e, "MULTITASKER_ADDTASK");
-            }
-            return SO;
-        }
-        public StatusObject AddParameterizedTask(string TaskName, Action<object> ParameterizedVoidFunction, object Input)
-        {
-            StatusObject SO = new StatusObject();
-            try
-            {
-                AvailableThreads.Add(TaskName, new Thread(new ParameterizedThreadStart(ParameterizedVoidFunction)));
+                Thread NewTask = new Thread(new ParameterizedThreadStart(Task));
+                NewTask.Start(Input);
             }
             catch(Exception e)
             {
-                SO = new StatusObject(e, "MULTITASKER_ADDPARAMETERIZEDTASK");
+                SO = new StatusObject(e, "MULTITASKER_ADDTASK_01");
+            }
+            return SO;
+        }
+        public StatusObject AddTask(Action Task)
+        {
+            StatusObject SO = new StatusObject();
+            try
+            {
+                Thread NewTask = new Thread(new ThreadStart(Task));
+                NewTask.Start();
+            }
+            catch(Exception e)
+            {
+                SO = new StatusObject(e, "MULTITASKER_ADDTASK_02");
             }
             return SO;
         }
@@ -91,19 +95,6 @@ namespace KATYA
                 {
                     AvailableThread.Value.Start();
                 }
-            }
-            catch(Exception e)
-            {
-
-            }
-            return SO;
-        }
-        public StatusObject StartThread(string TaskName)
-        {
-            StatusObject SO = new StatusObject();
-            try
-            {
-
             }
             catch(Exception e)
             {
