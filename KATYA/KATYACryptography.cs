@@ -13,7 +13,14 @@ namespace KATYA
         private string RootPath { get; set; }
         public KATYACryptography()
         {
+            try
+            {
 
+            }
+            catch(Exception e)
+            {
+
+            }
         }
         public BigInteger CalculatePermutationCount(int WordLength)
         {
