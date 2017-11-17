@@ -9,68 +9,96 @@ namespace KATYA
 {
     public class KATYAMultiTasker
     {
-        public Dictionary<string,Thread> AvailableThreads { get; set; }
-        public Dictionary<string,Thread> AvailableParameterizedThreads { get; set; }
+        public Dictionary<string, KATYATask> AvailableTasks { get; set; }
         public Dictionary<string,string> InstallDirectories { get; set; }
         public KATYAMultiTasker()
         {
-            try
-            {
-                this.AvailableThreads = new Dictionary<string, Thread>();
-                this.AvailableParameterizedThreads = new Dictionary<string, Thread>();
-            }
-            catch(Exception e)
-            {
-                this.AvailableThreads = new Dictionary<string, Thread>();
-                this.AvailableParameterizedThreads = new Dictionary<string, Thread>();
-            }
+            AvailableTasks = new Dictionary<string, KATYATask>();
         }
-        public StatusObject AddTask(Action<object> Task, object Input)
+        public StatusObject AddTask (string TaskName, Action<object> ParameterizedTask, object ParameterizedTaskInput)
         {
             StatusObject SO = new StatusObject();
             try
             {
-                Thread NewTask = new Thread(new ParameterizedThreadStart(Task));
-                NewTask.Start(Input);
+                KATYATask NewTask = new KATYATask(ParameterizedTask, ParameterizedTaskInput);
+                AvailableTasks.Add(TaskName, NewTask);
             }
             catch(Exception e)
             {
-                SO = new StatusObject(e, "MULTITASKER_ADDTASK_01");
+                SO = new StatusObject(e, "MULTITASKER_ADDTASK");
             }
             return SO;
         }
-        public StatusObject AddTask(Action Task)
+        public StatusObject AddTask(string TaskName, Action NonParameterizedTask)
         {
             StatusObject SO = new StatusObject();
             try
             {
-                Thread NewTask = new Thread(new ThreadStart(Task));
-                NewTask.Start();
+                KATYATask NewTask = new KATYATask(NonParameterizedTask);
+                AvailableTasks.Add(TaskName, NewTask);
             }
             catch(Exception e)
             {
-                SO = new StatusObject(e, "MULTITASKER_ADDTASK_02");
+                SO = new StatusObject(e, "MULTITASKER_ADDTASK");
             }
             return SO;
         }
-        public StatusObject GetAllTasks()
+        public StatusObject StartTask(string TaskName)
         {
             StatusObject SO = new StatusObject();
             try
             {
-                ProcessThreadCollection ActiveThreadList = Process.GetCurrentProcess().Threads;
-                foreach(ProcessThread ActiveThread in ActiveThreadList)
+                SO = AvailableTasks[TaskName].Start();
+            }
+            catch(Exception e)
+            {
+                SO = new StatusObject(e, "MULTITASKER_STARTTASK");
+            }
+            return SO;
+        }
+        public StatusObject StartAllTasks()
+        {
+            StatusObject SO = new StatusObject();
+            try
+            {
+
+            }
+            catch(Exception e)
+            {
+
+            }
+            return SO;
+        }
+        public StatusObject StopTask(string TaskName)
+        {
+            StatusObject SO = new StatusObject();
+            try
+            {
+
+            }
+            catch(Exception e)
+            {
+
+            }
+            return SO;
+        }
+        public StatusObject StopAllTasks()
+        {
+            StatusObject SO = new StatusObject();
+            try
+            {
+                foreach(KeyValuePair<string, KATYATask> AvailableTask in AvailableTasks)
                 {
-                    Console.WriteLine(ActiveThread.Id);
+                    AvailableTask.Value.Abort();
                 }
             }
             catch(Exception e)
             {
-                SO = new StatusObject(e, "MULTITASKER_GETALLTASKS_01");
+                SO = new StatusObject(e, "MULTITASKER_STOPALLTASKS");
             }
             return SO;
         }
-        
+
         /*Sample Threads*/
         public void TestTask1()
         {
@@ -100,7 +128,7 @@ namespace KATYA
         {
             while (true)
             {
-                Console.WriteLine("Parameterized Task 1 {0}", Hello);
+                //Console.WriteLine("Parameterized Task 1 {0}", Hello);
                 Thread.Sleep(500);
             }
             

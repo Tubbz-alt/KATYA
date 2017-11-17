@@ -13,16 +13,17 @@ namespace KATYA
             string StartupMode = "console";
             bool ProgramRunning = true;
             string UserInput = "";
+            KATYARuntime StartUpEvents = new KATYARuntime();
+            KATYAMultiTasker AvailableTasks = new KATYAMultiTasker();
+            /*Start all Threads*/
             try
             {
-                KATYARuntime StartUpEvents = new KATYARuntime();
-                KATYAMultiTasker AvailableTasks = new KATYAMultiTasker();
                 StartUpEvents.BuildDirectories();
-                AvailableTasks.AddTask(AvailableTasks.TestTask1);
-                AvailableTasks.AddTask(AvailableTasks.TestTask2);
-                AvailableTasks.AddTask(AvailableTasks.TestTask3);
-                AvailableTasks.AddTask(AvailableTasks.NonVoidTask, "Hellworldhuhuu");
-                AvailableTasks.GetAllTasks();
+                AvailableTasks.AddTask("TestTask1", AvailableTasks.TestTask1);
+                AvailableTasks.AddTask("TestTask2", AvailableTasks.TestTask2);
+                AvailableTasks.AddTask("TestTask3", AvailableTasks.TestTask3);
+                AvailableTasks.AddTask("TestParameterizedTask", AvailableTasks.NonVoidTask, "hehehehehe");
+                AvailableTasks.StartTask("TestTask3");
             }
             catch(Exception e)
             {
@@ -51,6 +52,11 @@ namespace KATYA
                             KATYASpeech SpeechTools = new KATYASpeech();
                             SpeechTools.Speak(InstructionSet);
                         }
+                        else if (PrimaryCommand == "cryptography")
+                        {
+                            KATYACryptography CryptographyTools = new KATYACryptography();
+                            
+                        }
                         Console.WriteLine(InstructionSet);
 
                     }
@@ -66,6 +72,15 @@ namespace KATYA
                     UserInput = "";
                     Console.WriteLine(e);
                 }
+            }
+            /*End all running threads*/
+            try
+            {
+                AvailableTasks.StopAllTasks();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
             }
         }
     }
