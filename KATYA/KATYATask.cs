@@ -13,6 +13,7 @@ namespace KATYA
         private object ParameterizedTaskInput { get; set; }
         public bool IsParameterized { get; private set; }
         private Thread NewTaskThread { get; set; }
+        private Task NewTask { get; set; }
         public KATYATask(Action<object> ParameterizedTask, object ParameterizedTaskInput)
         {
             this.ParameterizedTask = ParameterizedTask;
@@ -57,6 +58,33 @@ namespace KATYA
             {
                 SO = new StatusObject(e, "TASK_STOP");
             }
+            return SO;
+        }
+    }
+    public class KATYATask<T>
+    {
+        private Func<T> NonVoidNonParameterizedTask { get; set; }
+        private Func<object, T> NonVoidParameterizedTask { get; set; }
+        private object ParameterizedTaskInput { get; set; }
+        public bool IsParameterized { get; set; }
+        public KATYATask(Func<T> NonVoidNonParameterizedTask)
+        {
+            this.NonVoidNonParameterizedTask = NonVoidNonParameterizedTask;
+        }
+        public KATYATask(Func<object, T> NonVoidParameterizedTask, object ParameterizedTaskInput)
+        {
+            this.NonVoidParameterizedTask = NonVoidParameterizedTask;
+            this.ParameterizedTaskInput = ParameterizedTaskInput;
+            this.IsParameterized = true;
+        }
+        public StatusObject Start()
+        {
+            StatusObject SO = new StatusObject();
+            return SO;
+        }
+        public StatusObject Abort()
+        {
+            StatusObject SO = new StatusObject();
             return SO;
         }
     }

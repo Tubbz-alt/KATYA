@@ -20,6 +20,8 @@ namespace KATYA
             {
                 AvailableTasks.AddTask("hello", AvailableTasks.TestDelegateToRun);
                 AvailableTasks.AddTask("fuck", AvailableTasks.TestParameterizedDelegateToRun, "fuck");
+                KATYATask<StatusObject> testTask = new KATYATask<StatusObject>();
+                
             }
             catch(Exception e)
             {
