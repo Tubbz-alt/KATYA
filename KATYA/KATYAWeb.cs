@@ -38,6 +38,10 @@ namespace KATYA
             }
             return SO;
         }
+        /// <summary>
+        /// Function that posts using a HttpClient
+        /// </summary>
+        /// <returns></returns>
         public async Task<StatusObject> HTTPPostAsync()
         {
             StatusObject SO = new StatusObject();
@@ -47,11 +51,37 @@ namespace KATYA
                 FormUrlEncodedContent PostParameters = new FormUrlEncodedContent(this.PostParameters);
                 var Response = await Client.PostAsync(URL, PostParameters);
                 var ResponseContent = await Response.Content.ReadAsStringAsync();
-                Console.WriteLine(ResponseContent);
+                Client.Dispose();
             }
             catch(Exception e)
             {
-
+                SO = new StatusObject(e, "WEB_HTTPPOSTASYNC");
+            }
+            return SO;
+        }
+        /// <summary>
+        /// A function that posts the traditional way
+        /// </summary>
+        /// <returns></returns>
+        public StatusObject HTTPPost()
+        {
+            StatusObject SO = new StatusObject();
+            try
+            {
+                var Request = WebRequest.Create(URL);
+                var PostData = "hello=hello&world=world";
+                var PostDataArray = Encoding.ASCII.GetBytes(PostData);
+                Request.Method = "POST";
+                Request.ContentType = "application/x-www-form-urlencoded";
+                Request.ContentLength = PostDataArray.Length;
+                var Stream = Request.GetRequestStream();
+                Stream.Write(PostDataArray, 0, PostDataArray.Length);
+                var Response = (HttpWebResponse)Request.GetResponse();
+                var ResponseString = new StreamReader(Response.GetResponseStream()).ReadToEnd();
+            }
+            catch(Exception e)
+            {
+                SO = new StatusObject(e, "WEB_HTTPPOST");
             }
             return SO;
         }

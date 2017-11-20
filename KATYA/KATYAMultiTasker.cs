@@ -43,6 +43,20 @@ namespace KATYA
             }
             return SO;
         }
+        public StatusObject AddTask<T>(string TaskName, Func<T> FunctionToPeform)
+        {
+            StatusObject SO = new StatusObject();
+            try
+            {
+                Task<T> NewTask = new Task<T>(FunctionToPeform);
+                NewTask.Start();
+            }
+            catch(Exception e)
+            {
+
+            }
+            return SO;
+        }
         public StatusObject StartTask(string TaskName)
         {
             StatusObject SO = new StatusObject();
@@ -131,7 +145,22 @@ namespace KATYA
                 //Console.WriteLine("Parameterized Task 1 {0}", Hello);
                 Thread.Sleep(500);
             }
-            
+        }
+        public StatusObject TestDelegateToRun()
+        {
+            StatusObject SO = new StatusObject();
+            try
+            {
+                while (true)
+                {
+                    Console.WriteLine("hello from testdelegate");
+                }
+            }
+            catch(Exception e)
+            {
+
+            }
+            return SO;
         }
     }
 }

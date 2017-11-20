@@ -18,7 +18,8 @@ namespace KATYA
             /*Start all Threads*/
             try
             {
-                
+                AvailableTasks.AddTask("hello", AvailableTasks.TestDelegateToRun);
+
             }
             catch(Exception e)
             {
@@ -60,7 +61,8 @@ namespace KATYA
                         {
                             KATYAWeb WebTools = new KATYAWeb("http://localhost/testercfm/dump.cfm");
                             WebTools.AddPostParameters("hello", "world");
-                            Task<StatusObject> SO_PostRequest = WebTools.HTTPPostAsync();
+                            //Task<StatusObject> SO_PostRequest = WebTools.HTTPPostAsync();
+                            WebTools.HTTPPost();
                         }
                         else if (PrimaryCommand == "task")
                         {
