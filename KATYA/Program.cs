@@ -19,7 +19,7 @@ namespace KATYA
             try
             {
                 AvailableTasks.AddTask("hello", AvailableTasks.TestDelegateToRun);
-
+                AvailableTasks.AddTask("fuck", AvailableTasks.TestParameterizedDelegateToRun, "fuck");
             }
             catch(Exception e)
             {
