@@ -22,6 +22,19 @@ namespace KATYA
             this.URL = URL;
             this.PostParameters = new Dictionary<string, string>();
         }
+        public string GetURLEncodedString()
+        {
+            string URLEncodedString = "";
+            try
+            {
+                URLEncodedString = String.Join("&", PostParameters.Select(x => String.Format("{0}={1}", x.Key, x.Value)));
+            }
+            catch(Exception e)
+            {
+                URLEncodedString = "";
+            }
+            return URLEncodedString;
+        }
         public StatusObject HTTPGet()
         {
             StatusObject SO = new StatusObject();
@@ -68,16 +81,18 @@ namespace KATYA
             StatusObject SO = new StatusObject();
             try
             {
-                var Request = WebRequest.Create(URL);
-                var PostData = "hello=hello&world=world";
-                var PostDataArray = Encoding.ASCII.GetBytes(PostData);
+                WebRequest Request = WebRequest.Create(URL);
+                string PostData = GetURLEncodedString();
+                byte[] PostDataArray = Encoding.ASCII.GetBytes(PostData);
                 Request.Method = "POST";
                 Request.ContentType = "application/x-www-form-urlencoded";
                 Request.ContentLength = PostDataArray.Length;
-                var Stream = Request.GetRequestStream();
-                Stream.Write(PostDataArray, 0, PostDataArray.Length);
-                var Response = (HttpWebResponse)Request.GetResponse();
-                var ResponseString = new StreamReader(Response.GetResponseStream()).ReadToEnd();
+                Stream RequestStream = Request.GetRequestStream();
+                RequestStream.Write(PostDataArray, 0, PostDataArray.Length);
+                HttpWebResponse Response = (HttpWebResponse)Request.GetResponse();
+                string ResponseString = new StreamReader(Response.GetResponseStream()).ReadToEnd();
+                Console.WriteLine(ResponseString);
+                Console.WriteLine(String.Join(";", Response.Headers.AllKeys));
             }
             catch(Exception e)
             {

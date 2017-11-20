@@ -18,10 +18,7 @@ namespace KATYA
             /*Start all Threads*/
             try
             {
-                AvailableTasks.AddTask("hello", AvailableTasks.TestDelegateToRun);
-                AvailableTasks.AddTask("fuck", AvailableTasks.TestParameterizedDelegateToRun, "fuck");
-                KATYATask<StatusObject> testTask = new KATYATask<StatusObject>();
-                
+
             }
             catch(Exception e)
             {
@@ -61,8 +58,10 @@ namespace KATYA
                         }
                         else if (PrimaryCommand == "webpost")
                         {
-                            KATYAWeb WebTools = new KATYAWeb("http://localhost/testercfm/dump.cfm");
+                            KATYAWeb WebTools = new KATYAWeb("http://localhost/claims/index.cfm?fusebox=MTRreportsI&fuseaction=dsp_custom&RPTNAME=dsp_pivotmain.cfm&ProcessRpt=1&dl=0&CFID=367072&CFTOKEN=73b98c5fbd93033f-760557BE-0E23-647B-C603C4225EC60FE2&USID=6027&RID=6567267&DRFROM=01%2F01%2F2017&DRTO=20%2F11%2F2017&DATEBY=1");
                             WebTools.AddPostParameters("hello", "world");
+                            WebTools.AddPostParameters("how", "world");
+                            WebTools.GetURLEncodedString();
                             //Task<StatusObject> SO_PostRequest = WebTools.HTTPPostAsync();
                             WebTools.HTTPPost();
                         }
