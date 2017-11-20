@@ -37,6 +37,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors" />
     <Reference Include="System.Speech" />
@@ -51,6 +52,7 @@
     <Compile Include="KATYACryptography.cs" />
     <Compile Include="KATYADatabase.cs" />
     <Compile Include="KATYAFile.cs" />
+    <Compile Include="KATYAImage.cs" />
     <Compile Include="KATYAMalaysia.cs" />
     <Compile Include="KATYAMultiTasker.cs" />
     <Compile Include="KATYARuntime.cs" />

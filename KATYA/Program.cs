@@ -56,6 +56,16 @@ namespace KATYA
                             KATYAWeb WebTools = new KATYAWeb("https://www.google.com/");
                             WebTools.HTTPGet();
                         }
+                        else if (PrimaryCommand == "webpost")
+                        {
+                            KATYAWeb WebTools = new KATYAWeb("http://localhost/testercfm/dump.cfm");
+                            WebTools.AddPostParameters("hello", "world");
+                            Task<StatusObject> SO_PostRequest = WebTools.HTTPPostAsync();
+                        }
+                        else if (PrimaryCommand == "task")
+                        {
+                            
+                        }
                         else
                         {
                             Console.WriteLine("{0} is not a recognized command", PrimaryCommand);

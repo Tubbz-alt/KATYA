@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net;
+using System.Net.Http;
 using System.IO;
 using Newtonsoft.Json;
 namespace KATYA
@@ -37,12 +38,16 @@ namespace KATYA
             }
             return SO;
         }
-        public StatusObject HTTPPost()
+        public async Task<StatusObject> HTTPPostAsync()
         {
             StatusObject SO = new StatusObject();
             try
             {
-
+                HttpClient Client = new HttpClient();
+                FormUrlEncodedContent PostParameters = new FormUrlEncodedContent(this.PostParameters);
+                var Response = await Client.PostAsync(URL, PostParameters);
+                var ResponseContent = await Response.Content.ReadAsStringAsync();
+                Console.WriteLine(ResponseContent);
             }
             catch(Exception e)
             {
