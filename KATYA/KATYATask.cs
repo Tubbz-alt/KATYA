@@ -8,57 +8,38 @@ namespace KATYA
 {
     public class KATYATask
     {
-        private Action<object> ParameterizedTask { get; set; }
-        private Action NonParameterizedTask { get; set; }
+        private Action VoidNonParameterizedTask { get; set; }
+        private Action<object> VoidParameterizedTask { get; set; }
+        private bool IsParameterized { get; set; }
         private object ParameterizedTaskInput { get; set; }
-        public bool IsParameterized { get; private set; }
-        private Thread NewTaskThread { get; set; }
-        private Task NewTask { get; set; }
-        public KATYATask(Action<object> ParameterizedTask, object ParameterizedTaskInput)
+        private Task CurrentTask { get; set; }
+        public KATYATask(Action VoidNonParameterizedTask)
         {
-            this.ParameterizedTask = ParameterizedTask;
-            this.ParameterizedTaskInput = ParameterizedTaskInput;
-            this.IsParameterized = true;
-        }
-        public KATYATask(Action NonParameterizedTask)
-        {
-            this.NonParameterizedTask = NonParameterizedTask;
             this.IsParameterized = false;
+            this.VoidNonParameterizedTask = VoidNonParameterizedTask;
+        }
+        public KATYATask(Action<object> VoidParameterizedTask, object ParameterizedTaskInput)
+        {
+            this.IsParameterized = true;
+            this.VoidParameterizedTask = VoidParameterizedTask;
         }
         public StatusObject Start()
         {
             StatusObject SO = new StatusObject();
             try
             {
-                if (IsParameterized)
-                {
-                    this.NewTaskThread = new Thread(new ParameterizedThreadStart(ParameterizedTask));
-                    NewTaskThread.Start(ParameterizedTaskInput);
-                }
-                else
-                {
-                    this.NewTaskThread = new Thread(new ThreadStart(NonParameterizedTask));
-                    NewTaskThread.Start();
-                }
+
             }
             catch(Exception e)
             {
-                SO = new StatusObject(e, "TASK_START");
+
             }
             return SO;
         }
-        public StatusObject Abort()
+        public bool SetObject(object ParameterizedTaskInput)
         {
-            StatusObject SO = new StatusObject();
-            try
-            {
-                this.NewTaskThread.Abort();
-            }
-            catch(Exception e)
-            {
-                SO = new StatusObject(e, "TASK_STOP");
-            }
-            return SO;
+            this.ParameterizedTaskInput = ParameterizedTaskInput;
+            return true;
         }
     }
     public class KATYATask<T>
