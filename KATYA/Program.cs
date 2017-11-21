@@ -27,6 +27,7 @@ namespace KATYA
                 {
                     Console.WriteLine(SO.ErrorStackTrace);
                 }
+                KATYASqlServerDatabase newSqlServerDatabase = new KATYASqlServerDatabase("sql2008kl", "claims_dev", "sa", "password");
             }
             catch(Exception e)
             {
