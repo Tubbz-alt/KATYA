@@ -127,39 +127,7 @@ namespace KATYA
             return SO;
         }
 
-        /*Sample Threads*/
-        public void TestTask1()
-        {
-            while (true)
-            {
-                Console.WriteLine("Thread1");
-                Thread.Sleep(1000);
-            }
-        }
-        public void TestTask2()
-        {
-            while (true)
-            {
-                Console.WriteLine("Thread2");
-                Thread.Sleep(2000);
-            }
-        }
-        public void TestTask3()
-        {
-            while (true)
-            {
-                Console.WriteLine("Thread3");
-                Thread.Sleep(3000);
-            }
-        }
-        public void NonVoidTask(object Hello)
-        {
-            while (true)
-            {
-                //Console.WriteLine("Parameterized Task 1 {0}", Hello);
-                Thread.Sleep(500);
-            }
-        }
+        
         public StatusObject TestDelegateToRun()
         {
             StatusObject SO = new StatusObject();

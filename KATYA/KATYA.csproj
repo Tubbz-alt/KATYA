@@ -54,10 +54,13 @@
     <Compile Include="KATYAFile.cs" />
     <Compile Include="KATYAImage.cs" />
     <Compile Include="KATYAMalaysia.cs" />
+    <Compile Include="KATYAMerimen.cs" />
     <Compile Include="KATYAMultiTasker.cs" />
+    <Compile Include="KATYAMultiThreader.cs" />
     <Compile Include="KATYARuntime.cs" />
     <Compile Include="KATYASpeech.cs" />
     <Compile Include="KATYATask.cs" />
+    <Compile Include="KATYAThread.cs" />
     <Compile Include="KATYAWeb.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

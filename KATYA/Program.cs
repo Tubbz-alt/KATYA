@@ -14,11 +14,19 @@ namespace KATYA
             bool ProgramRunning = true;
             string UserInput = "";
             KATYARuntime StartUpEvents = new KATYARuntime();
-            KATYAMultiTasker AvailableTasks = new KATYAMultiTasker();
+            KATYAMultiTasker TaskManager = new KATYAMultiTasker();
+            KATYAMultiThreader ThreadManager = new KATYAMultiThreader();
             /*Start all Threads*/
             try
             {
-
+                StatusObject SO = new StatusObject();
+                ThreadManager.AddThread("helli", ThreadManager.TestTask1);
+                ThreadManager.AddThread("world", ThreadManager.NonVoidTask, "fork");
+                SO = ThreadManager.StartAllThreads();
+                if(SO.Status == StatusCode.FAILURE)
+                {
+                    Console.WriteLine(SO.ErrorStackTrace);
+                }
             }
             catch(Exception e)
             {
@@ -92,7 +100,7 @@ namespace KATYA
             /*End all running threads*/
             try
             {
-                AvailableTasks.StopAllTasks();
+                TaskManager.StopAllTasks();
             }
             catch(Exception e)
             {
