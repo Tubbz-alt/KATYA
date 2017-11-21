@@ -70,7 +70,7 @@ namespace KATYA
             }
             catch(Exception e)
             {
-                SO = new StatusObject(e, "SQLSERVERDATABASE_EXECUTENONREADA");
+                SO = new StatusObject(e, "SQLSERVERDATABASE_EXECUTENONREADERQUERY");
             }
             return SO;
         }
