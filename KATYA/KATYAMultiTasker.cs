@@ -117,7 +117,7 @@ namespace KATYA
             {
                 foreach(KeyValuePair<string, KATYATask> AvailableTask in AvailableTasks)
                 {
-                    AvailableTask.Value.Abort();
+                    
                 }
             }
             catch(Exception e)

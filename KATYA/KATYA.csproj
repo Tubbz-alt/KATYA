@@ -59,6 +59,7 @@
     <Compile Include="KATYAMultiThreader.cs" />
     <Compile Include="KATYARuntime.cs" />
     <Compile Include="KATYASpeech.cs" />
+    <Compile Include="KATYASqlServerDatabase.cs" />
     <Compile Include="KATYATask.cs" />
     <Compile Include="KATYAThread.cs" />
     <Compile Include="KATYAWeb.cs" />
