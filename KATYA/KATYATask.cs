@@ -23,6 +23,10 @@ namespace KATYA
             this.IsParameterized = true;
             this.VoidParameterizedTask = VoidParameterizedTask;
         }
+        public KATYATask(Action<object[]> VoidParameterizedTask, params object[] ParameterizedTaskInputs)
+        {
+            CurrentTask = new Task(() => VoidParameterizedTask(ParameterizedTaskInputs));
+        }
         public StatusObject Start()
         {
             StatusObject SO = new StatusObject();
@@ -48,6 +52,7 @@ namespace KATYA
         private Func<object, T> NonVoidParameterizedTask { get; set; }
         private object ParameterizedTaskInput { get; set; }
         public bool IsParameterized { get; set; }
+        public Task<T> CurrentTask { get; set; }
         public KATYATask(Func<T> NonVoidNonParameterizedTask)
         {
             this.NonVoidNonParameterizedTask = NonVoidNonParameterizedTask;
@@ -58,14 +63,34 @@ namespace KATYA
             this.ParameterizedTaskInput = ParameterizedTaskInput;
             this.IsParameterized = true;
         }
+        public KATYATask(Func<string,string, T> NonVoidParameterizedTask, string ParameterizedTaskInput1, string ParameterizedTaskInput2)
+        {
+            this.CurrentTask = new Task<T>(() => NonVoidParameterizedTask(ParameterizedTaskInput1, ParameterizedTaskInput2));
+        }
         public StatusObject Start()
         {
             StatusObject SO = new StatusObject();
+            try
+            {
+                CurrentTask.Start();
+            }
+            catch(Exception e)
+            {
+                SO = new StatusObject(e, "TASK_T_START");
+            }
             return SO;
         }
-        public StatusObject Abort()
+        public StatusObject Stop()
         {
             StatusObject SO = new StatusObject();
+            try
+            {
+
+            }
+            catch(Exception e)
+            {
+                SO = new StatusObject(e, "TASK_T_STOP");
+            }
             return SO;
         }
     }

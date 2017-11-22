@@ -43,16 +43,16 @@ namespace KATYA
             }
             return SO;
         }
-        public StatusObject GenerateRainbowTableInsertQueries()
+        public StatusObject GenerateRainbowTableInsertQueries(int WordLength)
         {
             StatusObject SO = new StatusObject();
             try
             {
-
+                
             }
             catch(Exception e)
             {
-
+                SO = new StatusObject(e, "CRYPTOGRAPHY_GENERATERAINBOWTABLEINSERTQUERIES");
             }
             return SO;
         }

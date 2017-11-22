@@ -41,6 +41,7 @@ namespace KATYA
             try
             {
                 WebRequest TargetSite = WebRequest.Create(URL);
+                WebResponse TargetSiteResponse = TargetSite.GetResponse();
                 Stream RequestContent = TargetSite.GetResponse().GetResponseStream();
                 StreamReader RequestContentReader = new StreamReader(RequestContent);
                 Console.WriteLine(RequestContentReader.ReadToEnd());
@@ -113,5 +114,6 @@ namespace KATYA
             }
             return SO;
         }
+        
     }
 }

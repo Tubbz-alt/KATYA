@@ -20,13 +20,7 @@ namespace KATYA
             try
             {
                 StatusObject SO = new StatusObject();
-                ThreadManager.AddThread("helli", ThreadManager.TestTask1);
-                ThreadManager.AddThread("world", ThreadManager.NonVoidTask, "fork");
-                SO = ThreadManager.StartAllThreads();
-                if(SO.Status == StatusCode.FAILURE)
-                {
-                    Console.WriteLine(SO.ErrorStackTrace);
-                }
+                KATYACryptography CryptoTools = new KATYACryptography();
                 KATYASqlServerDatabase newSqlServerDatabase = new KATYASqlServerDatabase("sql2008kl", "claims_dev", "sa", "password");
             }
             catch(Exception e)
@@ -67,7 +61,7 @@ namespace KATYA
                         }
                         else if (PrimaryCommand == "webpost")
                         {
-                            KATYAWeb WebTools = new KATYAWeb("http://localhost/claims/index.cfm?fusebox=MTRreportsI&fuseaction=dsp_custom&RPTNAME=dsp_pivotmain.cfm&ProcessRpt=1&dl=0&CFID=367072&CFTOKEN=73b98c5fbd93033f-760557BE-0E23-647B-C603C4225EC60FE2&USID=6027&RID=6567267&DRFROM=01%2F01%2F2017&DRTO=20%2F11%2F2017&DATEBY=1");
+                            KATYAWeb WebTools = new KATYAWeb("http://localhost/cfmtools/index.cfm");
                             WebTools.AddPostParameters("hello", "world");
                             WebTools.AddPostParameters("how", "world");
                             WebTools.GetURLEncodedString();
@@ -83,7 +77,6 @@ namespace KATYA
                             Console.WriteLine("{0} is not a recognized command", PrimaryCommand);
                         }
                         Console.WriteLine(InstructionSet);
-
                     }
                     else
                     {
