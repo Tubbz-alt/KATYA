@@ -56,8 +56,12 @@ namespace KATYA
                         }
                         else if (PrimaryCommand == "web")
                         {
-                            KATYAWeb WebTools = new KATYAWeb("https://www.google.com/");
-                            WebTools.HTTPGet();
+                            KATYAWeb WebTools = new KATYAWeb("http://localhost/claims/index.cfm?fusebox=MTRreportsI&fuseaction=dsp_custom&RPTNAME=dsp_pivotmain.cfm&ProcessRpt=1&dl=0&CFID=118&CFTOKEN=1608cd623b44b1b7-DF3E65AB-FD19-8EE1-720F24F8F01661AF&USID=6027&RID=8291522&DRFROM=01%2F01%2F2017&DRTO=22%2F11%2F2017&DATEBY=1");
+                            StatusObject SO_GET = WebTools.HTTPGet();
+                            if(SO_GET.Status == StatusCode.FAILURE)
+                            {
+                                Console.WriteLine(SO_GET.ErrorStackTrace);
+                            }
                         }
                         else if (PrimaryCommand == "webpost")
                         {

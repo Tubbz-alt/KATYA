@@ -7,27 +7,29 @@ using System.Net;
 using System.Net.Http;
 using System.IO;
 using Newtonsoft.Json;
+using System.Net.Mime;
+using System.IO;
 namespace KATYA
 {
     public partial class KATYAWeb
     {
         public string URL { get; set; }
-        public Dictionary<string,string> PostParameters { get; set; }
+        public Dictionary<string,string> RequestParameters { get; set; }
         public KATYAWeb()
         {
-            this.PostParameters = new Dictionary<string, string>();
+            this.RequestParameters = new Dictionary<string, string>();
         }
         public KATYAWeb(string URL)
         {
             this.URL = URL;
-            this.PostParameters = new Dictionary<string, string>();
+            this.RequestParameters = new Dictionary<string, string>();
         }
         public string GetURLEncodedString()
         {
             string URLEncodedString = "";
             try
             {
-                URLEncodedString = String.Join("&", PostParameters.Select(x => String.Format("{0}={1}", x.Key, x.Value)));
+                URLEncodedString = String.Join("&", RequestParameters.Select(x => String.Format("{0}={1}", x.Key, x.Value)));
             }
             catch(Exception e)
             {
@@ -40,11 +42,14 @@ namespace KATYA
             StatusObject SO = new StatusObject();
             try
             {
+                WebClient Client = new WebClient();
                 WebRequest TargetSite = WebRequest.Create(URL);
                 WebResponse TargetSiteResponse = TargetSite.GetResponse();
                 Stream RequestContent = TargetSite.GetResponse().GetResponseStream();
                 StreamReader RequestContentReader = new StreamReader(RequestContent);
                 Console.WriteLine(RequestContentReader.ReadToEnd());
+                Console.WriteLine(String.Join(";", TargetSiteResponse.Headers.AllKeys));
+                File.WriteAllBytes(@"test.csv", Client.DownloadData(URL));
             }
             catch(Exception e)
             {
@@ -62,7 +67,7 @@ namespace KATYA
             try
             {
                 HttpClient Client = new HttpClient();
-                FormUrlEncodedContent PostParameters = new FormUrlEncodedContent(this.PostParameters);
+                FormUrlEncodedContent PostParameters = new FormUrlEncodedContent(this.RequestParameters);
                 var Response = await Client.PostAsync(URL, PostParameters);
                 var ResponseContent = await Response.Content.ReadAsStringAsync();
                 Client.Dispose();
@@ -106,7 +111,7 @@ namespace KATYA
             StatusObject SO = new StatusObject();
             try
             {
-                this.PostParameters.Add(Key, Value);
+                this.RequestParameters.Add(Key, Value);
             }
             catch(Exception e)
             {
