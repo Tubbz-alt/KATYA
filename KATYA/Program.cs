@@ -22,6 +22,7 @@ namespace KATYA
                 StatusObject SO = new StatusObject();
                 KATYACryptography CryptoTools = new KATYACryptography();
                 KATYASqlServerDatabase newSqlServerDatabase = new KATYASqlServerDatabase("sql2008kl", "claims_dev", "sa", "password");
+                
             }
             catch(Exception e)
             {
@@ -56,21 +57,16 @@ namespace KATYA
                         }
                         else if (PrimaryCommand == "web")
                         {
-                            KATYAWeb WebTools = new KATYAWeb("http://localhost/claims/index.cfm?fusebox=MTRreportsI&fuseaction=dsp_custom&RPTNAME=dsp_pivotmain.cfm&ProcessRpt=1&dl=0&CFID=118&CFTOKEN=1608cd623b44b1b7-DF3E65AB-FD19-8EE1-720F24F8F01661AF&USID=6027&RID=8291522&DRFROM=01%2F01%2F2017&DRTO=22%2F11%2F2017&DATEBY=1");
-                            StatusObject SO_GET = WebTools.HTTPGet();
-                            if(SO_GET.Status == StatusCode.FAILURE)
+                            KATYAWebRequest test = new KATYAWebRequest(InstructionSet);
+                            StatusObject SO_Download = test.DownloadHeaderFiles("");
+                            if(SO_Download.Status == StatusCode.FAILURE)
                             {
-                                Console.WriteLine(SO_GET.ErrorStackTrace);
+                                Console.WriteLine(SO_Download.ErrorStackTrace);
                             }
                         }
                         else if (PrimaryCommand == "webpost")
                         {
-                            KATYAWeb WebTools = new KATYAWeb("http://localhost/cfmtools/index.cfm");
-                            WebTools.AddPostParameters("hello", "world");
-                            WebTools.AddPostParameters("how", "world");
-                            WebTools.GetURLEncodedString();
-                            //Task<StatusObject> SO_PostRequest = WebTools.HTTPPostAsync();
-                            WebTools.HTTPPost();
+                            
                         }
                         else if (PrimaryCommand == "task")
                         {

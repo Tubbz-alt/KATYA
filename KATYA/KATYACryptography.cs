@@ -56,5 +56,18 @@ namespace KATYA
             }
             return SO;
         }
+        public StatusObject MatchMD5Hash()
+        {
+            StatusObject SO = new StatusObject();
+            try
+            {
+
+            }
+            catch(Exception e)
+            {
+
+            }
+            return SO;
+        }
     }
 }

@@ -13,6 +13,7 @@ namespace KATYA
         public KATYAFile(string FilePath)
         {
             this.FilePath = FilePath;
+            this.FileType = Path.GetExtension(FilePath);
         }
         public StatusObject ReadAllText()
         {
@@ -38,6 +39,11 @@ namespace KATYA
             {
                 SO = new StatusObject(e, "FILE_READTEXTBYLINE");
             }
+            return SO;
+        }
+        public StatusObject ReadExcelByLine()
+        {
+            StatusObject SO = new StatusObject();
             return SO;
         }
         public StatusObject ProcessAllText()
@@ -66,6 +72,7 @@ namespace KATYA
             }
             return SO;
         }
+        
         public StatusObject WriteToTextFile()
         {
             StatusObject SO = new StatusObject();
