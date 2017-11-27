@@ -58,7 +58,7 @@ namespace KATYA
                         else if (PrimaryCommand == "web")
                         {
                             KATYAWebRequest test = new KATYAWebRequest(InstructionSet);
-                            StatusObject SO_Download = test.DownloadHeaderFiles("");
+                            StatusObject SO_Download = test.DownloadHeaderFiles();
                             if(SO_Download.Status == StatusCode.FAILURE)
                             {
                                 Console.WriteLine(SO_Download.ErrorStackTrace);
@@ -76,7 +76,6 @@ namespace KATYA
                         {
                             Console.WriteLine("{0} is not a recognized command", PrimaryCommand);
                         }
-                        Console.WriteLine(InstructionSet);
                     }
                     else
                     {

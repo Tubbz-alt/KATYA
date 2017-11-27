@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using System.Net.Mime;
 using System.IO;
 using System.Net.Mail;
+using System.Collections.Specialized;
 
 namespace KATYA
 {
@@ -133,18 +134,23 @@ namespace KATYA
             StatusObject SO = new StatusObject();
             return SO;
         }
-        public StatusObject DownloadHeaderFiles(string URL)
+        public StatusObject DownloadHeaderFiles()
         {
             StatusObject SO = new StatusObject();
             try
             {
                 WebClient Client = new WebClient();
-                Client.OpenRead(URL);
+                Client.OpenRead(this.URL);
                 string TargetContentDisposition = Client.ResponseHeaders["content-disposition"];
                 string DownloadedFileName = new ContentDisposition(TargetContentDisposition).FileName;
                 ContentDisposition DownloadedFile = new ContentDisposition(TargetContentDisposition);
-                
-                Console.WriteLine("{0} {1}", DownloadedFileName, DownloadedFile.Size, DownloadedFile.GetType());
+                File.WriteAllBytes(@"d:\test.csv", Client.DownloadData(this.URL));
+                StringDictionary DownloadedFileParameters = DownloadedFile.Parameters;
+                foreach(string Key in DownloadedFile.Parameters.Keys)
+                {
+                    Console.WriteLine(Key);
+                }
+                Console.WriteLine("{0} {1}", DownloadedFileName, DownloadedFile.Size);
             }
             catch(Exception e)
             {
