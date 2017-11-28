@@ -21,8 +21,6 @@ namespace KATYA
             {
                 StatusObject SO = new StatusObject();
                 KATYACryptography CryptoTools = new KATYACryptography();
-                KATYASqlServerDatabase newSqlServerDatabase = new KATYASqlServerDatabase("sql2008kl", "claims_dev", "sa", "password");
-                
             }
             catch(Exception e)
             {
@@ -58,6 +56,11 @@ namespace KATYA
                         else if (PrimaryCommand == "web")
                         {
                             KATYAWebRequest test = new KATYAWebRequest(InstructionSet);
+                            StatusObject SO_Get = test.Get();
+                            if(SO_Get.Status == StatusCode.FAILURE)
+                            {
+                                Console.WriteLine(SO_Get.ErrorStackTrace);
+                            }
                             StatusObject SO_Download = test.DownloadHeaderFiles();
                             if(SO_Download.Status == StatusCode.FAILURE)
                             {
@@ -72,9 +75,57 @@ namespace KATYA
                         {
                             
                         }
+                        else if (PrimaryCommand == "database")
+                        {
+                            List<string> InstructionParameters = InstructionSet.Split(' ').ToList();
+                            string SecondaryCommand = InstructionParameters.ElementAtOrDefault(0);
+                            string Server = InstructionParameters.ElementAtOrDefault(1);
+                            string Database = InstructionParameters.ElementAtOrDefault(2);
+                            string UserID = InstructionParameters.ElementAtOrDefault(3);
+                            string Password = InstructionParameters.ElementAtOrDefault(4);
+                            int TotalArguments = InstructionParameters.Count;
+                            KATYASqlServerDatabase TargetDatabase = new KATYASqlServerDatabase(Server, Database, UserID, Password);
+                            if (SecondaryCommand == "exportallssp")
+                            {
+                                StatusObject SO_ExtractStoredProcedures = TargetDatabase.ExtractStoredProcedures();
+                                if (TargetDatabase.IsWinAuth())
+                                {
+                                    SO_ExtractStoredProcedures = TargetDatabase.ExtractStoredProcedures();
+                                }
+                                else if (TargetDatabase.IsSqlAuth())
+                                {
+
+                                }
+                                if (SO_ExtractStoredProcedures.Status == StatusCode.FAILURE)
+                                {
+                                    Console.WriteLine(SO_ExtractStoredProcedures.ErrorStackTrace);
+                                }
+                            }
+                            else if (SecondaryCommand == "exportssp")
+                            {
+                                StatusObject SO_ExtractStoredProcedures = TargetDatabase.ExtractStoredProcedures();
+                                if (TargetDatabase.IsWinAuth())
+                                {
+                                    SO_ExtractStoredProcedures = TargetDatabase.ExtractStoredProcedures();
+                                }
+                                else if (TargetDatabase.IsSqlAuth())
+                                {
+
+                                }
+                                if (SO_ExtractStoredProcedures.Status == StatusCode.FAILURE)
+                                {
+                                    Console.WriteLine(SO_ExtractStoredProcedures.ErrorStackTrace);
+                                }
+                            }
+                        }
                         else
                         {
                             Console.WriteLine("{0} is not a recognized command", PrimaryCommand);
+                        }
+                        /*Batch Processing End*/
+                        if (args.Length > 0)
+                        {
+                            UserInput = "exit";
                         }
                     }
                     else

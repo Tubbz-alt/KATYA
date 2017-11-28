@@ -33,7 +33,13 @@ namespace KATYA
             StatusObject SO = new StatusObject();
             try
             {
-
+                WebClient Client = new WebClient();
+                Stream WebResponse = Client.OpenRead(this.URL);
+                StreamReader WebResponseReader = new StreamReader(WebResponse);
+                StreamWriter WebResponseWriter = new StreamWriter(@"hello.txt");
+                WebResponseWriter.Write(WebResponseReader.ReadToEnd());
+                WebResponseWriter.Close();
+                Console.WriteLine(WebResponseReader.ReadToEnd());
             }
             catch(Exception e)
             {

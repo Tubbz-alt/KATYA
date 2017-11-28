@@ -9,9 +9,6 @@ namespace KATYA
 {
     public partial class KATYADatabase
     {
-        public string Server { get; set; }
-        public string Database { get; set; }
-        public string UserID { get; set; }
-        public string Password { get; set; }
+        
     }
 }

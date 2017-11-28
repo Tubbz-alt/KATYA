@@ -60,6 +60,9 @@
     <Compile Include="KATYARuntime.cs" />
     <Compile Include="KATYASpeech.cs" />
     <Compile Include="KATYASqlServerDatabase.cs" />
+    <Compile Include="KATYASqlServerDatabase_CustomAlgorithms.cs" />
+    <Compile Include="KATYASqlServerDatabase_QueryExecution.cs" />
+    <Compile Include="KATYASqlServerDatabase_StoredProcedureManagement.cs" />
     <Compile Include="KATYATask.cs" />
     <Compile Include="KATYAThread.cs" />
     <Compile Include="KATYAWebRequest.cs" />

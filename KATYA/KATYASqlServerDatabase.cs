@@ -5,11 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
-
+using System.IO;
 namespace KATYA
 {
-    public partial class KATYASqlServerDatabase : KATYADatabase
+    public partial class KATYASqlServerDatabase
     {
+        public string Server { get; set; }
+        public string Database { get; set; }
+        public string UserID { get; set; }
+        public string Password { get; set; }
         private string AuthenticationMode { get; set; }
         public KATYASqlServerDatabase(string Server, string Database, string UserID, string Password)
         {
@@ -46,6 +50,14 @@ namespace KATYA
             }
             return ConnectionString;
         }
+        public bool IsWinAuth()
+        {
+            return this.AuthenticationMode == "winauth";
+        }
+        public bool IsSqlAuth()
+        {
+            return this.AuthenticationMode == "sqlauth";
+        }
         public SqlConnection GetSqlConnection()
         {
             SqlConnection NewConnection = new SqlConnection();
@@ -53,7 +65,7 @@ namespace KATYA
             {
                 NewConnection = new SqlConnection(GetConnectionString());
                 NewConnection.Open();
-                NewConnection.Dispose();
+                NewConnection.Close();
             }
             catch(Exception e)
             {
@@ -61,23 +73,6 @@ namespace KATYA
             }
             return NewConnection;
         }
-        public StatusObject ExecuteNonReaderQuery(string Query)
-        {
-            StatusObject SO = new StatusObject();
-            try
-            {
-
-            }
-            catch(Exception e)
-            {
-                SO = new StatusObject(e, "SQLSERVERDATABASE_EXECUTENONREADERQUERY");
-            }
-            return SO;
-        }
-        public StatusObject ExecuteReaderQuery(string Query)
-        {
-            StatusObject SO = new StatusObject();
-            return SO;
-        }
+        
     }
 }
