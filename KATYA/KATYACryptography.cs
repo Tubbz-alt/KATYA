@@ -56,12 +56,13 @@ namespace KATYA
             }
             return SO;
         }
-        public StatusObject MatchMD5Hash()
+        public StatusObject MatchMD5Hash(string MD5HashString, char FirstCharacter)
         {
             StatusObject SO = new StatusObject();
             try
             {
-
+                string Characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789~!@#$%^&*()_+-={}[]:\" |;'\\<>?,./";
+                
             }
             catch(Exception e)
             {
