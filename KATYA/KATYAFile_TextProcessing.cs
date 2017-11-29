@@ -44,6 +44,7 @@ namespace KATYA
             }
             return SO;
         }
+        
         public StatusObject ReadTextByLine()
         {
             StatusObject SO = new StatusObject();
@@ -84,7 +85,6 @@ namespace KATYA
             }
             return SO;
         }
-
         public StatusObject WriteToTextFile()
         {
             StatusObject SO = new StatusObject();
@@ -104,6 +104,19 @@ namespace KATYA
             try
             {
                 Console.WriteLine(Input);
+            }
+            catch(Exception e)
+            {
+
+            }
+            return SO;
+        }
+        public StatusObject TabDelimitedToSqlInsert(int ColumnCount, string Input, bool FirstLineIsHeader)
+        {
+            StatusObject SO = new StatusObject();
+            try
+            {
+
             }
             catch(Exception e)
             {

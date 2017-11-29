@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using System.IO;
 namespace KATYA
 {
+    public enum FileFirstLine
+    {
+        ISHEADER
+    }
     public partial class KATYAFile
     {
         public string FilePath { get; set; }
