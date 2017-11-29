@@ -34,5 +34,18 @@ namespace KATYA
             }
             return SO;
         }
+        public StatusObject CSVToSqlUpdate(int ColumnCount)
+        {
+            StatusObject SO = new StatusObject();
+            try
+            {
+
+            }
+            catch(Exception e)
+            {
+
+            }
+            return SO;
+        }
     }
 }
