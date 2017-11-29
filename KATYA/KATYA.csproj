@@ -58,7 +58,6 @@
     <Compile Include="KATYAFile_ImageProcessing.cs" />
     <Compile Include="KATYAFile_TextProcessing.cs" />
     <Compile Include="KATYAFile_VideoProcessing.cs" />
-    <Compile Include="KATYAImage.cs" />
     <Compile Include="KATYAMalaysia.cs" />
     <Compile Include="KATYAMerimen.cs" />
     <Compile Include="KATYAMultiTasker.cs" />

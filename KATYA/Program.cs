@@ -75,6 +75,11 @@ namespace KATYA
                         {
                             
                         }
+                        else if (PrimaryCommand == "draw")
+                        {
+                            KATYAFile file = new KATYAFile(InstructionSet);
+                            file.DrawSomething();
+                        }
                         else if (PrimaryCommand == "database")
                         {
                             List<string> InstructionParameters = InstructionSet.Split(' ').ToList();

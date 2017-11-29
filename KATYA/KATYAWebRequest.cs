@@ -36,9 +36,10 @@ namespace KATYA
                 Stream WebResponse = Client.OpenRead(this.URL);
                 StreamReader WebResponseReader = new StreamReader(WebResponse);
                 StreamWriter WebResponseWriter = new StreamWriter(@"hello.txt");
-                WebResponseWriter.Write(WebResponseReader.ReadToEnd());
+                string WebResponseText = WebResponseReader.ReadToEnd();
+                WebResponseWriter.Write(WebResponseText);
                 WebResponseWriter.Close();
-                Console.WriteLine(WebResponseReader.ReadToEnd());
+                Console.WriteLine(WebResponseText);
             }
             catch(Exception e)
             {
@@ -148,8 +149,9 @@ namespace KATYA
                 Client.OpenRead(this.URL);
                 string TargetContentDisposition = Client.ResponseHeaders["content-disposition"];
                 string DownloadedFileName = new ContentDisposition(TargetContentDisposition).FileName;
+                Console.WriteLine(Path.GetExtension(DownloadedFileName));
                 ContentDisposition DownloadedFile = new ContentDisposition(TargetContentDisposition);
-                File.WriteAllBytes(@"d:\test.csv", Client.DownloadData(this.URL));
+                File.WriteAllBytes(@"d:\test.exe", Client.DownloadData(this.URL));
                 StringDictionary DownloadedFileParameters = DownloadedFile.Parameters;
                 foreach(string Key in DownloadedFile.Parameters.Keys)
                 {
