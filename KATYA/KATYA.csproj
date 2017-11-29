@@ -52,6 +52,12 @@
     <Compile Include="KATYACryptography.cs" />
     <Compile Include="KATYADatabase.cs" />
     <Compile Include="KATYAFile.cs" />
+    <Compile Include="KATYAFile_AudioProcessing.cs" />
+    <Compile Include="KATYAFile_CSVProcessing.cs" />
+    <Compile Include="KATYAFile_ExcelProcessing.cs" />
+    <Compile Include="KATYAFile_ImageProcessing.cs" />
+    <Compile Include="KATYAFile_TextProcessing.cs" />
+    <Compile Include="KATYAFile_VideoProcessing.cs" />
     <Compile Include="KATYAImage.cs" />
     <Compile Include="KATYAMalaysia.cs" />
     <Compile Include="KATYAMerimen.cs" />
