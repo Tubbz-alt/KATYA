@@ -83,10 +83,13 @@ namespace KATYA
                         else if (PrimaryCommand == "misc")
                         {
                             KATYAMiscellaneous RandomStuff = new KATYAMiscellaneous();
-                            StatusObject SO_Login = RandomStuff.Login();
-                            if(SO_Login.Status == StatusCode.FAILURE)
+                            for(int i = 0; i < 100; i++)
                             {
-                                Console.WriteLine(SO_Login.ErrorStackTrace);
+                                StatusObject SO_Login = RandomStuff.ClaimCreate();
+                                if (SO_Login.Status == StatusCode.FAILURE)
+                                {
+                                    Console.WriteLine(SO_Login.ErrorStackTrace);
+                                }
                             }
                         }
                         else if (PrimaryCommand == "md5")

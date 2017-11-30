@@ -72,6 +72,7 @@
     <Compile Include="KATYAThread.cs" />
     <Compile Include="KATYAWebRequest.cs" />
     <Compile Include="KATYAWebRequestManager.cs" />
+    <Compile Include="KATYAWebRequest_Definitions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatusObject.cs" />

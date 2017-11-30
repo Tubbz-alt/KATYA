@@ -18,14 +18,17 @@ namespace KATYA
         private string URL { get; set; }
         private Dictionary<string,string> RequestParameters { get; set; }
         private Dictionary<string,object> RequestObjects { get; set; }
+        private Dictionary<string,string> UrlEncodedStringEscapeCharacters { get; set; }
         public KATYAWebRequest()
         {
             this.RequestParameters = new Dictionary<string, string>();
+            this.UrlEncodedStringEscapeCharacters = new Dictionary<string, string>();
         }
         public KATYAWebRequest(string URL)
         {
             this.URL = URL;
             this.RequestParameters = new Dictionary<string, string>();
+            this.UrlEncodedStringEscapeCharacters = new Dictionary<string, string>();
         }
         public StatusObject Get()
         {
@@ -65,7 +68,7 @@ namespace KATYA
             string URLEncodedString = "";
             try
             {
-                URLEncodedString = String.Join("&", RequestParameters.Select(x => String.Format("{0}={1}", x.Key, x.Value)));
+                URLEncodedString = new FormUrlEncodedContent(this.RequestParameters).ReadAsStringAsync().Result;
             }
             catch(Exception e)
             {
@@ -73,22 +76,21 @@ namespace KATYA
             }
             return URLEncodedString;
         }
-        public StatusObject Post()
+        public StatusObject Post(bool AllowAutoRedirect)
         {
             StatusObject SO = new StatusObject();
             try
             {
-                WebRequest TargetSite = WebRequest.Create(this.URL);
+                HttpWebRequest TargetSiteHttp = (HttpWebRequest)WebRequest.Create(this.URL);
+                TargetSiteHttp.AllowAutoRedirect = AllowAutoRedirect;
+                TargetSiteHttp.UserAgent = "helloasd";
                 string PostData = GetURLEncodedString();
                 byte[] PostDataBytes = Encoding.ASCII.GetBytes(PostData);
-                TargetSite.Method = "POST";
-                TargetSite.ContentType = "application/x-www-form-urlencoded";
-                TargetSite.ContentLength = PostDataBytes.Length;
-                TargetSite.GetRequestStream().Write(PostDataBytes, 0, PostDataBytes.Length);
-                WebResponse TargetSiteResponse = TargetSite.GetResponse();
-                Stream TargetSiteResponseStream = TargetSiteResponse.GetResponseStream();
-                StreamReader TargetSiteResponseStreamReader = new StreamReader(TargetSiteResponseStream);
-                Console.WriteLine(TargetSiteResponseStreamReader.ReadToEnd());
+                TargetSiteHttp.Method = "POST";
+                TargetSiteHttp.ContentType = "application/x-www-form-urlencoded";
+                TargetSiteHttp.ContentLength = PostDataBytes.Length;
+                TargetSiteHttp.GetRequestStream().Write(PostDataBytes, 0, PostDataBytes.Length);
+                HttpWebResponse TargetSiteResponse = (HttpWebResponse)TargetSiteHttp.GetResponse();
             }
             catch(Exception e)
             {
@@ -99,6 +101,17 @@ namespace KATYA
         public async Task<StatusObject> PostAsync()
         {
             StatusObject SO = new StatusObject();
+            try
+            {
+                HttpClient Client = new HttpClient();
+                FormUrlEncodedContent PostContent = new FormUrlEncodedContent(this.RequestParameters);
+                var Response = await Client.PostAsync(this.URL, PostContent);
+                Console.WriteLine(Response.Content.ReadAsStringAsync());
+            }
+            catch (Exception e)
+            {
+
+            }
             return SO;
         }
         public StatusObject AddRequestParameters(string Key, string Value)
@@ -106,7 +119,7 @@ namespace KATYA
             StatusObject SO = new StatusObject();
             try
             {
-                RequestParameters.Add(Key, Value);
+                RequestParameters.Add(Key.Trim(), Value.Trim());
             }
             catch(Exception e)
             {
