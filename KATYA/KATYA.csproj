@@ -59,7 +59,7 @@
     <Compile Include="KATYAFile_TextProcessing.cs" />
     <Compile Include="KATYAFile_VideoProcessing.cs" />
     <Compile Include="KATYAMalaysia.cs" />
-    <Compile Include="KATYAMerimen.cs" />
+    <Compile Include="KATYAMiscellaneous.cs" />
     <Compile Include="KATYAMultiTasker.cs" />
     <Compile Include="KATYAMultiThreader.cs" />
     <Compile Include="KATYARuntime.cs" />
@@ -71,6 +71,7 @@
     <Compile Include="KATYATask.cs" />
     <Compile Include="KATYAThread.cs" />
     <Compile Include="KATYAWebRequest.cs" />
+    <Compile Include="KATYAWebRequestManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatusObject.cs" />

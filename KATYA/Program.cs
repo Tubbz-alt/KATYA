@@ -80,6 +80,35 @@ namespace KATYA
                             KATYAFile file = new KATYAFile(InstructionSet);
                             file.DrawSomething();
                         }
+                        else if (PrimaryCommand == "misc")
+                        {
+                            KATYAMiscellaneous RandomStuff = new KATYAMiscellaneous();
+                            StatusObject SO_Login = RandomStuff.Login();
+                            if(SO_Login.Status == StatusCode.FAILURE)
+                            {
+                                Console.WriteLine(SO_Login.ErrorStackTrace);
+                            }
+                        }
+                        else if (PrimaryCommand == "md5")
+                        {
+                            KATYACryptography CryptoTools = new KATYACryptography();
+                            CryptoTools.GetMD5Hash(InstructionSet);
+                        }
+                        else if (PrimaryCommand == "sha1")
+                        {
+                            KATYACryptography CryptoTools = new KATYACryptography();
+                            CryptoTools.GetSHA1Hash(InstructionSet);
+                        }
+                        else if (PrimaryCommand == "sha256")
+                        {
+                            KATYACryptography CryptoTools = new KATYACryptography();
+                            CryptoTools.GetSHA256Hash(InstructionSet);
+                        }
+                        else if (PrimaryCommand == "sha512")
+                        {
+                            KATYACryptography CryptoTools = new KATYACryptography();
+                            CryptoTools.GetSHA512Hash(InstructionSet);
+                        }
                         else if (PrimaryCommand == "database")
                         {
                             List<string> InstructionParameters = InstructionSet.Split(' ').ToList();

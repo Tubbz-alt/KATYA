@@ -35,7 +35,7 @@ namespace KATYA
                 WebClient Client = new WebClient();
                 Stream WebResponse = Client.OpenRead(this.URL);
                 StreamReader WebResponseReader = new StreamReader(WebResponse);
-                StreamWriter WebResponseWriter = new StreamWriter(@"hello.txt");
+                StreamWriter WebResponseWriter = new StreamWriter(@"hehehe.txt");
                 string WebResponseText = WebResponseReader.ReadToEnd();
                 WebResponseWriter.Write(WebResponseText);
                 WebResponseWriter.Close();
@@ -60,38 +60,35 @@ namespace KATYA
             }
             return SO;
         }
-        public StatusObject BulkGet()
+        public string GetURLEncodedString()
         {
-            StatusObject SO = new StatusObject();
+            string URLEncodedString = "";
             try
             {
-
+                URLEncodedString = String.Join("&", RequestParameters.Select(x => String.Format("{0}={1}", x.Key, x.Value)));
             }
             catch(Exception e)
             {
-                SO = new StatusObject(e, "WEBREQUEST_BULKGET");
+                URLEncodedString = "";
             }
-            return SO;
-        }
-        public async Task<StatusObject> BulkGetAsync()
-        {
-            StatusObject SO = new StatusObject();
-            try
-            {
-
-            }
-            catch(Exception e)
-            {
-
-            }
-            return SO;
+            return URLEncodedString;
         }
         public StatusObject Post()
         {
             StatusObject SO = new StatusObject();
             try
             {
-
+                WebRequest TargetSite = WebRequest.Create(this.URL);
+                string PostData = GetURLEncodedString();
+                byte[] PostDataBytes = Encoding.ASCII.GetBytes(PostData);
+                TargetSite.Method = "POST";
+                TargetSite.ContentType = "application/x-www-form-urlencoded";
+                TargetSite.ContentLength = PostDataBytes.Length;
+                TargetSite.GetRequestStream().Write(PostDataBytes, 0, PostDataBytes.Length);
+                WebResponse TargetSiteResponse = TargetSite.GetResponse();
+                Stream TargetSiteResponseStream = TargetSiteResponse.GetResponseStream();
+                StreamReader TargetSiteResponseStreamReader = new StreamReader(TargetSiteResponseStream);
+                Console.WriteLine(TargetSiteResponseStreamReader.ReadToEnd());
             }
             catch(Exception e)
             {
@@ -100,24 +97,6 @@ namespace KATYA
             return SO;
         }
         public async Task<StatusObject> PostAsync()
-        {
-            StatusObject SO = new StatusObject();
-            return SO;
-        }
-        public StatusObject BulkPost()
-        {
-            StatusObject SO = new StatusObject();
-            try
-            {
-
-            }
-            catch(Exception e)
-            {
-                SO = new StatusObject(e, "WEBREQUEST_BULKPOST");
-            }
-            return SO;
-        }
-        public async Task<StatusObject> BulkPostAsync()
         {
             StatusObject SO = new StatusObject();
             return SO;
